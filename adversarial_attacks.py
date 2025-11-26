@@ -19,6 +19,7 @@ classifier = PyTorchClassifier(
     clip_values=(0, 1)
 )
 
+
 def fgsm_attack(model, data, eps=0.1):
     fgsm = FastGradientMethod(estimator=classifier, eps=eps)
     
@@ -30,6 +31,7 @@ def fgsm_attack(model, data, eps=0.1):
 
     adv_example = fgsm.generate(x=data_np)
     return adv_example
+
 
 def visualize_attack(original, adversarial):
     plt.subplot(1, 2, 1)
@@ -45,10 +47,11 @@ def visualize_attack(original, adversarial):
     plt.tight_layout()
     plt.show()
 
+
 if __name__ == "__main__":
     # Create a dummy test image with values in [0,1], shape (1,1,28,28)
     sample_image = np.random.rand(1, 1, 28, 28).astype(np.float32)
     adv_example = fgsm_attack(model, sample_image, eps=0.1)
 
     # Visualize original and adversarial images (first sample in batch)
-    visualize_attack(sample_image[0,0], adv_example[0,0])
+    visualize_attack(sample_image[ 0,0], adv_example[0,0])
